@@ -23,6 +23,7 @@ import {
   getSpecialistTypeColor,
   mockSpecialists,
 } from "@/lib/data";
+import { BookingFlow } from "./booking";
 
 export async function generateStaticParams() {
   return mockSpecialists.map((s) => ({ slug: s.slug }));
@@ -274,67 +275,11 @@ export default async function SpecialistProfilePage({
           </Tabs>
         </div>
 
-        {/* Sidebar — Booking & Actions */}
+        {/* Sidebar — Booking Flow */}
         <div className="space-y-6">
-          <Card className="sticky top-24" id="programare">
-            <CardHeader>
-              <CardTitle className="text-lg">Programează o ședință</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold">
-                  {specialist.priceMin}–{specialist.priceMax}{" "}
-                  {specialist.currency}
-                </div>
-                <div className="text-sm text-muted-foreground">per ședință</div>
-              </div>
-
-              <Separator />
-
-              {/* Next available */}
-              <div>
-                <div className="mb-3 text-sm font-medium">
-                  Primele disponibilități:
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {specialist.availability.slice(0, 3).flatMap((day) =>
-                    day.slots.slice(0, 2).map((slot) => (
-                      <Button
-                        key={`${day.day}-${slot}`}
-                        variant="outline"
-                        size="sm"
-                        className="text-xs"
-                      >
-                        <Calendar className="mr-1 h-3 w-3" />
-                        {day.day} {slot}
-                      </Button>
-                    ))
-                  )}
-                </div>
-                <Button variant="link" size="sm" className="mt-2 w-full text-xs">
-                  Vezi toate disponibilitățile →
-                </Button>
-              </div>
-
-              <Button className="w-full gap-2" size="lg">
-                <Calendar className="h-4 w-4" />
-                Programează acum
-              </Button>
-
-              <Button variant="outline" className="w-full gap-2">
-                <MessageSquare className="h-4 w-4" />
-                Trimite un mesaj
-              </Button>
-
-              <Button
-                variant="ghost"
-                className="w-full gap-2 text-muted-foreground"
-              >
-                <Share2 className="h-4 w-4" />
-                Recomandă unui prieten
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="sticky top-24">
+            <BookingFlow specialist={specialist} />
+          </div>
         </div>
       </div>
     </div>
