@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Leaf } from "lucide-react";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Menu, Leaf } from "lucide-react";
 
 const navLinks = [
   { href: "/specialisti", label: "Caută specialist" },
@@ -49,12 +49,14 @@ export function Navbar() {
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className="lg:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Meniu</span>
-            </Button>
-          </SheetTrigger>
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:hidden"
+            onClick={() => setOpen(true)}
+          >
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Meniu</span>
+          </button>
           <SheetContent side="right" className="w-80">
             <div className="flex flex-col gap-6 pt-6">
               <Link
